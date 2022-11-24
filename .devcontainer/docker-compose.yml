@@ -1,0 +1,25 @@
+version: '3'
+services:
+  laap:
+    build: ./
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      #Swap the folder path for plugin vs theme development
+      - laap:/var/www/html
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres      
+    ports:
+      - 5432:5432
+    volumes:
+      - data:/var/lib/postgresql
+
+volumes:
+  laap:
+  data:
